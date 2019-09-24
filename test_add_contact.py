@@ -65,16 +65,14 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_xpath("//option[@value='10']").click()
         wd.find_element_by_name("bmonth").click()
         Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
-        wd.find_element_by_xpath(
-            "(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[44]").click()
+        wd.find_element_by_xpath("//option[@value='October']").click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.byear)
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.address2)
-        wd.find_element_by_xpath(
-            "(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]").click()
+        wd.find_element_by_xpath("//input[21]").click()
 
     def open_contact_page(self, wd):
         wd.find_element_by_link_text("add new").click()
@@ -89,7 +87,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def open_home_page(self, wd):
-        wd.get("http://localhost/index.php")
+        wd.get("http://localhost/addressbook/")
 
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
