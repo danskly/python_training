@@ -13,11 +13,11 @@ class ContactHelper:
     def create(self, contact):
         wd = self.app.wd
         self.open_contact_page()
-        # init contact creation
-        self.filling_in_form_fields(contact, wd)
+        self.fill_in_contact_form(contact)
         self.return_to_home_page()
 
-    def filling_in_form_fields(self, contact, wd):
+    def fill_in_contact_form(self, contact):
+        wd = self.app.wd
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -62,26 +62,34 @@ class ContactHelper:
         wd.find_element_by_name("address2").send_keys(contact.address2)
         wd.find_element_by_xpath("//input[21]").click()
 
-    def modify(self, contact):
+    def modify_first_contact(self, contact):
         wd = self.app.wd
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
+        self.open_home_page()
+        self.select_first_contact()
         # init modify contact
         wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
         # fill group contact
-        self.filling_in_form_fields(contact, wd)
+        self.fill_in_contact_form(contact)
         # submit contact modify
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
 
+    def select_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+
     def delete_first_contact(self):
         wd = self.app.wd
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
+        self.open_home_page()
+        self.select_first_contact()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         # self.return_to_home_page()
+
+    def open_home_page(self):
+        wd = self.app.wd
+        wd.get("http://localhost/addressbook/")
 
     def return_to_home_page(self):
         wd = self.app.wd
