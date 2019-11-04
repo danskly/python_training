@@ -8,7 +8,8 @@ class ContactHelper:
 
     def open_contact_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not wd.current_url.endswith('/edit.php'):
+            wd.find_element_by_link_text("add new").click()
 
     def create(self, contact):
         wd = self.app.wd
@@ -85,11 +86,13 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        wd.find_elements_by_css_selector("div.msgbox")
         # self.return_to_home_page()
 
     def open_home_page(self):
         wd = self.app.wd
-        wd.get("http://localhost/addressbook/")
+        if not wd.current_url.endswith('/index.php'):
+            wd.get("http://localhost/addressbook/")
 
     def return_to_home_page(self):
         wd = self.app.wd
