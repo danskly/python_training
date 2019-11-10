@@ -91,7 +91,7 @@ class ContactHelper:
 
     def open_home_page(self):
         wd = self.app.wd
-        if not wd.current_url.endswith('/index.php'):
+        if not wd.current_url.endswith('/addressbook/'):
             wd.get("http://localhost/addressbook/")
 
     def return_to_home_page(self):
